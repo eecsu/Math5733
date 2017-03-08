@@ -1,0 +1,210 @@
+%Title: Chp Lecture 02
+%Started:
+%Updated:
+\documentclass{amsart}
+\usepackage{amssymb,latexsym,amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{enumerate}
+%-----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+% THEOREMS -------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\theoremstyle{definition}
+\newtheorem{ex}{Example}
+\numberwithin{equation}{section}
+\newtheorem{prob}{Problem}
+\numberwithin{equation}{section}
+% Colors-----------------------------------------------------------
+\definecolor{Green}{rgb}{0,.5,0}
+%use for definitions
+\definecolor{Red}{rgb}{.8,.2,0}
+%use for emphasis
+\definecolor{Yellow}{rgb}{.6,.6,.1}
+%use for part titles
+\definecolor{Cyan}{rgb}{.2,.6,.7}
+%use for comments
+\definecolor{Purple}{rgb}{.4,0,1}
+%use for examples
+\definecolor{deepred}{rgb}{.53,.29,.24}
+%use for important points
+\definecolor{Black}{rgb}{0,0,0}
+%use for washout
+\definecolor{Grey}{rgb}{.45,.45,.45}
+% use for theorems
+\newcommand{\tred}[1]{\textcolor{Red}{#1}}
+\newcommand{\tgreen}[1]{\textcolor{Green}{#1}}
+\newcommand{\tcyan}[1]{\textcolor{Cyan}{#1}}
+\newcommand{\tyellow}[1]{\textcolor{Yellow}{#1}}
+\newcommand{\tpurple}[1]{\textcolor{Purple}{#1}}
+\newcommand{\tblack}[1]{\textcolor{Black}{#1}}
+\newcommand{\tgrey}[1]{\textcolor{Grey}{#1}}
+\newcommand{\tdeepred}[1]{\textcolor{deepred}{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\lv}{\left\langle}
+\newcommand{\rv}{\right\rangle}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\mat}[2][rrrrrrrrrrrrrrrrrrrrrrrrr]{\left(\begin{array}{#1}#2\\ \end{array}\right)}
+% ----------------------------------------------------------------
+\setlength{\topmargin}{-.3in}
+\setlength{\headheight}{.2in}
+\setlength{\headsep}{.3in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+\renewcommand{\baselinestretch}{1.5}
+% ----------------------------------------------------------------
+
+\begin{document}
+
+\title{Math 5773: Chapter 2 Summary\\ Two-Point Boundary Value Problems}
+\author{Troy Butler}
+
+\maketitle
+
+
+\setcounter{section}{2}
+\section*{Chapter 2 -- The purpose}
+
+The Laplacian operator, often denoted by either $\Delta$ or $\nabla^2$, when applied to a function of $n$ spatial variables $x_1, \ldots, x_n$ gives the sum of the (non-mixed) second-order derivatives.
+This operator plays a fundamental role in many PDEs and typically is used to represent diffusion.
+PDEs of models for which diffusion is a dominant characteristic describing the evolution of the state variable often (but not always) have very smooth solutions (or at least they are generally significantly  smoother than the data). 
+
+Poisson's equation,
+\[
+	-\Delta u = f, \ x\in\Omega\subset\mathbb{R}^n,
+\]
+which we may also write as
+\[
+	-\sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2} = f, \ x\in\Omega\subset\mathbb{R}^n,
+\]
+is probably the easiest PDE for us to initially study that involves the Laplacian. 
+This is a stationary PDE (i.e., it does not depend on time), and is usually used to model the equilibrium behavior of some state in a system that is subjected to a constant forcing $f$ throughout time. 
+When $\Omega\subset\mathbb{R}$, then Poisson's equation reduces to an ODE.
+Moreover, if $\Omega = (0,1)\subset\mathbb{R}$, then specifying values of $u$ at the boundary, $\partial\Omega = \set{\set{0}, \set{1}}$, defines what is called a two-point boundary value problem (BVP). 
+This greatly simplifies our initial studies while also providing some crucial insight into more general cases, so this two-point BVP serves as our focus in this chapter.
+
+As we work through this chapter, we will see that several of the concepts explored in Projects 1.1 and 1.2 are useful. 
+You may want to review the Python Notebooks created for these projects more carefully than we covered in class prior to reading through this chapter. 
+Sections 2.3 and 2.4 are probably the ``meatiest'' parts of this material and students should take the time to read these over carefully. 
+
+\subsection{Poisson's Equation in One Dimension}
+
+This section utilizes some basic calculus concepts\footnote{The Fundamental Theorem of Calculus and integration by parts play crucial roles. You may want to review these prior to reading this section of the book if those are not crystal clear.} to prove that the solution to the two-point BVP exists and is unique under the assumption that $f$ is continuous\footnote{This assumptions can be weakened, but that is a topic best left for a more advanced course.} and integrable on $\Omega$.
+The end result is a rather simple formula (Eq.~(2.7) in the text) that will give the solution to the two-point BVP for any $f$ satisfying the assumptions.
+Students should use (2.7) to solve Exercise 2.2, which we will go over in class. 
+Students should also try repeating the process used to derive (2.7) to solve Exercise 2.4 which simply allows for the boundary values to be non-zero. 
+
+Through some clever inspection, a Green's function can be identified (Eq.~(2.8) in the text) so that the solution given by Eq.~(2.7) can be written more compactly in the form of Eq.~(2.9).   
+Some properties of the Green's function for this particular BVP are provided in the text, but not much is said for how the form of the Green's function in Eq.~(2.8) was determined.
+Deriving Green's functions can be rather difficult and without much to go on in the text, it may seem rather impossible to try and solve a problem requiring the determination of a Green's function (e.g., Exercises 2.3 and 2.8).
+For now, suffice it to say that we essentially replace $f$ with the Dirac delta function $\delta(x-y)$ (which is of course not a function) and do ``math'' to solve the BVP for $G(x,y)$. 
+The ``math'' can be made entirely rigorous of course, but it requires a theory that is typically developed after taking courses in measure theory and functional analysis, which I highly encourage you to take.
+In particular, we have to generalize our notion of derivatives to apply to things called {\em distributions}. 
+
+As far as we are concerned, just assume that we define derivatives in a more piecewise sense so that the derivative of $\abs{x}$ on $[-1,1]$ does in fact exist as the function that is $-1$ on $[-1,0)$ and is $1$ on $(0,1]$ (it may be helpful to draw some pictures here).
+The value of the derivative at $0$ does not exist in a classical sense, and you may just assign it arbitrarily to be either $-1$ or $1$. 
+Then, we can take the derivative again, which is now $0$ everywhere except there is a jump discontinuity at $x=0$, so again we cannot define the derivative in the classical sense.
+We will let $2\delta(x)$ denote the derivative where $2$ denotes the size of the jump that occurs at $x=0$ and the sign is positive because the function ``jumps up'' as we move from left to right. 
+So, by ``math'', I really mean we use somewhat hand-waving notions of differentiability like above without really thinking of all the rules we are violating and hope that things work out okay\footnote{Engineers were doing this with the Dirac delta function for about 50 years with great succcess before mathematicians finally were able to explain why.}.
+Here, we will simply exploit the Green's function to derive properties involving the solution $u$.
+
+A topic that is often studied in great detail in more advanced PDEs courses is the regularity of a solution.
+Regularity simply means smoothness.
+It is first shown that a solution $u$ has at least two more derivatives than $f$, so it is ``smoother'' than $f$.
+This is perhaps not surprising since if $u$ is a solution to the two-point BVP, we already know it can be differentiated twice, and this second-order derivative is equal to the continuous $f$ otherwise $u$ could not have satisfied the PDE. 
+We often find it convenient to study questions about regularity by taking the viewpoint that the differential operator defines a type of mapping from data $f$ to solutions $u$. 
+
+Next, it is shown that if $f$ is nonnegative, then so is $u$ (this is referred to as monotonicity), and the proof is simple using the compact representation of the solution in (2.9).
+Specifically, we have that $G(x,y)\geq 0$ for all $x,y\in[0,1]$, so if we also have $f\geq 0$ on $[0,1]$, then, by (2.9), we see that for each $x\in[0,1]$, $u(x)$ is defined by an integral of a nonnegative function, which is nonnegative by results from calculus. 
+The $\sup$-norm is then defined and a simple maximum principle is proven using (2.9) which basically says that the largest value $u$ can take on $[0,1]$ is bounded by some constant times the largest value that $f$ can take on $[0,1]$. 
+Following this definition of the $\sup$-norm, students should have no trouble completing Exercises 2.1 and 2.9.
+
+Specifying the exact values of the solution at points on the boundary is referred to as specifying {\em Dirichlet} boundary conditions. 
+In practice, this is often impossible and {\em Neumann} or {\em Robin} boundary conditions are more realistic.
+Neumann boundary conditions simply mean we specify how the normal derivative of the solution at the boundary is behaving.
+In the heat equation, Neumann boundary conditions are typically used to model the situation where the boundaries are perfectly insulated. 
+Robin boundary conditions are just a linear combination of Dirichlet and Neumann boundary conditions that model more general insulators on the boundary. 
+Mixed boundary condition simply means that parts of the boundary are prescribed different {\em types} of boundary conditions.
+
+Students should be able to do Exercises 2.5--2.8. 
+I will show the general procedure for how to determine a Green's function for the BVP on a different $\Omega\subset\mathbb{R}$ in Exercise 2.3, and, time permitting, for a BVP involving a different PDE in Exercise 2.8 in class.
+We will go over the solutions to Exercises 2.6 in class, and Exercise 2.7 (left for homework) is simply a repeat of Exercise 2.6 with {\em periodic} boundary conditions. 
+
+
+\subsection{A Finite Difference Approximation}
+
+Students should be able to do Exercises 2.10--2.16 after reading through this section. 
+I highly recommend reading through this section first at a high level (i.e., without paying too much attention to the details and possibly even skipping over many of the details) in order to get the big picture. 
+Then, working through the exercises which will force you to re-read certain parts of this section and pay attention to certain important details that are necessary to understand in order to solve problems. 
+We will go over the solutions to Exercises 2.12 and 2.13 in class. 
+
+We now convert the differential equation into a system of algebraic equations using a simple centered finite difference scheme that is easily derived from Taylor series.
+The basic idea explored here is to lay down a uniform regular grid of points that discretizes $\Omega\cup\partial\Omega$.
+Non-uniform grids can also be used, but there is not really much need to in the case considered here.
+In higher-dimensional problems with more irregularly shaped spatial domains or for other PDEs with solutions that exhibit certain behaviors (e.g., having interior or boundary layers), we will typically want to use a non-uniform grid, but these are more advanced topics that we omit here.
+
+The text dives into some rather technical details involving the direct solution of the resulting algebraic system using Gaussian elimination, which culminates in Algorithm 2.1. 
+Conditions are then provided for which Algorithm 2.1 is guaranteed to give a solution.
+However, these conditions really only apply in a world where infinite precision arithmetic exists (i.e., not on computers). 
+
+
+
+
+
+\subsection{Continuous and Discrete Solutions}
+
+Students should be able to do Exercises 2.17--2.23 after reading through this section.
+As with the previous section, I recommend a similar strategy for approaching this material.
+We will go over solutions to Exercises 2.18 and 2.19 in class. 
+Exercises 2.17 and 2.23 are left for homework. 
+
+
+First some really useful notation is developed to distinguish between the continuous and discrete solutions.
+This is like a precursor to the notation used in a more advanced course on PDEs and finite element methods, so students should take the time to make sure all this notation makes sense.
+Also, the idea of an inner product between two functions being defined by the integral of the product as shown in Eq.~(2.28) is crucial to advanced theory and methods such as the finite element method.
+Of course, we are already well familiar with the idea that the inner product between two finite-dimensional vectors in a Euclidean space is given by the sum of the products of the components, so the form of Eq.~(2.29) is probably not that surprising. 
+The multiplication of $h$ to the sum shown in (2.29) simply transforms the sum to a numerical approximation of the integral shown in (2.28).
+In fact, as stated in the text, this discrete inner product is simply the result of applying the trapezoidal rule to approximate (2.28). 
+
+Symmetry (and more generally self-adjointness) of an operator is then explored.
+Lemma 2.2 simply uses integration by parts twice to show that the Laplacian in 1-D is self-adjoint (this is in fact true in any dimension). 
+A summation by parts formula is then derived (see Eq.~(2.31)) and Lemma 2.3 then shows that the discrete operator defined by the centered finite difference scheme is self-adjoint. 
+These operators are also shown to be positive-definite.
+This is subsequently used to provide alternative proofs on the uniqueness of both the continuous and discrete solutions. 
+
+The text then shows how to get the discrete Green's function by simply evaluating the continuous Green's function on the discretized spatial domain. 
+As in the continuous case, this is used to prove a monotonicity property and maximum principle for the discrete solution. 
+
+Finally, convergence of the discrete solution to the continuous solution as $h\to 0$ is proven by establishing the {\em consistency}\footnote{Lemma 2.6} and {\em stability}\footnote{This is technically implied by Proposition 2.6, but stability in general is often a pain to prove. You can read more about it in a book solely devoted to finite difference methods.}.
+
+
+\subsection{Eigenvalue Problems}
+
+This is a detailed but rather straightforward section to read through.
+It is developing the building blocks for Fourier analysis that we use later in the course.
+The corresponding exercises in the text are Exercises 2.24--2.30. 
+We will go over the solutions to Exercises 2.25 and 2.28 in class. 
+
+
+\end{document}

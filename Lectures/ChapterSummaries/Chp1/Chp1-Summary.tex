@@ -1,0 +1,205 @@
+%Title: Chp Lecture 01
+%Started:
+%Updated:
+\documentclass{amsart}
+\usepackage{amssymb,latexsym,amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{enumerate}
+%-----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+% THEOREMS -------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\theoremstyle{definition}
+\newtheorem{ex}{Example}
+\numberwithin{equation}{section}
+\newtheorem{prob}{Problem}
+\numberwithin{equation}{section}
+% Colors-----------------------------------------------------------
+\definecolor{Green}{rgb}{0,.5,0}
+%use for definitions
+\definecolor{Red}{rgb}{.8,.2,0}
+%use for emphasis
+\definecolor{Yellow}{rgb}{.6,.6,.1}
+%use for part titles
+\definecolor{Cyan}{rgb}{.2,.6,.7}
+%use for comments
+\definecolor{Purple}{rgb}{.4,0,1}
+%use for examples
+\definecolor{deepred}{rgb}{.53,.29,.24}
+%use for important points
+\definecolor{Black}{rgb}{0,0,0}
+%use for washout
+\definecolor{Grey}{rgb}{.45,.45,.45}
+% use for theorems
+\newcommand{\tred}[1]{\textcolor{Red}{#1}}
+\newcommand{\tgreen}[1]{\textcolor{Green}{#1}}
+\newcommand{\tcyan}[1]{\textcolor{Cyan}{#1}}
+\newcommand{\tyellow}[1]{\textcolor{Yellow}{#1}}
+\newcommand{\tpurple}[1]{\textcolor{Purple}{#1}}
+\newcommand{\tblack}[1]{\textcolor{Black}{#1}}
+\newcommand{\tgrey}[1]{\textcolor{Grey}{#1}}
+\newcommand{\tdeepred}[1]{\textcolor{deepred}{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\lv}{\left\langle}
+\newcommand{\rv}{\right\rangle}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\mat}[2][rrrrrrrrrrrrrrrrrrrrrrrrr]{\left(\begin{array}{#1}#2\\ \end{array}\right)}
+% ----------------------------------------------------------------
+\setlength{\topmargin}{-.3in}
+\setlength{\headheight}{.2in}
+\setlength{\headsep}{.3in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+\renewcommand{\baselinestretch}{1.5}
+% ----------------------------------------------------------------
+
+\begin{document}
+
+\title{Math 5773: Chapter 1 Summary\\ Setting the Scene}
+\author{Troy Butler}
+
+\maketitle
+
+\section*{What exactly is the intent here?}
+
+These notes are intended to supplement the text in a few ways.
+First, these notes provide a summary of the overall narrative of each chapter while also expanding or adding upon material as I think is necessary.
+It is often very easy when reading mathematical texts to get lost in the details.
+Reading these notes alongside with the chapter will help keep you centered on the take home messages and the big picture while you work through the details.
+Second, these notes will help guide our in-class discussions.
+We use these to provide structure and guidance on which ideas, techniques, and problems we will explore in more detail in a class.
+Finally, these notes are also intended to help solidify the connections between chapters, ideas, techniques, and problems that may be easily overlooked. 
+
+\setcounter{section}{0}
+\section{Chapter 1 -- The purpose}
+
+Primarily, this chapter is intended to get us started on using a common terminology and notation when discussing partial differential equations (PDEs). 
+Secondly, the chapter is intended to get us thinking about solving PDEs in two ways: (1) analytically (interpretation: exactly) and (2) numerically (interpretation: {\em approximately}). 
+Naturally, we want to study errors in the numerical approximation of a solution to a PDE. 
+With regard to this secondary purpose (which is really the primary purpose of this course), we do not go into any great detail in this first chapter.
+Rather, we are just warming ourselves up to the idea that we will study solutions to PDEs in two ways throughout the course. 
+
+An ancillary purpose is to shake the rust off from some specific skills obtained from (rigorous) calculus, ordinary differential equations (ODEs), and linear algebra that we have likely either not used in quite some time or did not completely master in previous courses.
+This is achieved only modestly by reading the chapter, and is better achieved by solving many of the exercises (and projects) at the end of the chapter. 
+If there are any particular skills that you observe have atrophied as we work through the problems, then the good news is that there has never been a better time than right now to strengthen them. 
+
+\subsection{What is a Differential Equation?}
+
+We will typically use $u$ to denote the unknown function in a differential equation (e.g., see (1.1) and (1.2) in the text). 
+Typically, we refer to $u$ as the {\em state variable} since it is used to represent a particular quantifiable aspect (i.e. a state) of a physical system that is modeled by the PDE or ODE. 
+For example, $u$ may represent a contaminant concentration at some particular point in space-time in a transport equation used to model how a contaminant spreads in the subsurface. 
+
+The variables $x, y,$ and $z$ are typically reserved for representing the usual three-dimensional spatial variables (assuming that the typical Cartesian coordinate system is appropriate for the model and not spherical or cylindrical coordinates).
+We will denote the spatial domain $\Omega$ to represent all the spatial points for which a differential equation is studied, and $\partial\Omega$ will denote the boundary of this domain.
+The variable $t$ is typically reserved for the temporal variable.
+The space-time domain for which the differential equation is to be solved is simply referred to as the {\em domain}. 
+Any coefficients in a differential equation are typically referred to as {\em parameters}.
+
+It is common to write $L$ to denote a differential operator (e.g., see (1.3) in the text) so that the differential equation can be written compactly as
+\begin{equation}
+	L(u) = f,
+\end{equation}
+where (the forcing function) $f$ only depends upon the independent domain variables and not the state variable. 
+Usually we specify the domain explicitly along with the differential equation. 
+The function $f$ along with any boundary or initial conditions that are specified are usually referred to as the {\em data}\footnote{The first time the authors use the term {\em data} this way is in Section 1.4.3 of the text right before (1.34).}. 
+We sometimes refer to $f$ and/or boundary data as source terms. 
+If $f\equiv 0$, then the differential equation is called {\em homogeneous}.
+If $f\neq 0$, then the differential equation is called {\em nonhomogeneous}.
+
+Linear differential operators are of particular interest and are used to describe some of the most studied differential equations. 
+A differential operator $L$ is {\em linear} if for all functions $u$ and $v$ (for which it makes sense to evaluate $L(u)$ and $L(v)$) and for all constants $\alpha$ and $\beta$, we have
+\[
+	L(\alpha u + \beta v) = \alpha L(u) + \beta L(v).
+\]
+A differential operator is {\em nonlinear} if it is not linear.
+Students should do Exercise 1.1 to get some practice using the terminology to characterize differential equations. 
+We will go over the answers in class. 
+
+\subsection{The Solution and Its Properties}
+
+The question of stability of a solution is very important.
+This is conceptually related to the concept of stability of a numerical method, which is something we will study in more detail later in the semester.
+We can pose many questions regarding stability, but conceptually it almost always boils down to the following type of question
+\begin{quote}
+	If quantity $X$ in the differential equation/data is perturbed by a small amount $\epsilon$, is the perturbation to the solution also small?
+\end{quote}
+You were probably first exposed to such questions when studying the stability of equilibrium solutions to first-order autonomous ODEs. 
+In the text, they briefly describe the stability of a solution with respect to perturbations of an initial condition, which is a common stability problem of interest.  
+Exercise 1.2 is only a slight variant of what is presented in Section 1.2 in the text.
+Exercise 1.3 is slightly more interesting\footnote{Note that in part (d) the authors refer to the initial condition as {\em data}.}.
+Exercise 1.4 is probably the most interesting as it involves a question of stability with respect to a parameter. 
+We will go over the solutions to Exercises 1.2 and 1.3 in class.
+Exercise 1.4 is left for homework. 
+
+\subsection{A Numerical Method}
+
+The most commonly used finite difference schemes are derived by manipulating Taylor series expansions, which usually means it is straightforward to derive the local {\em truncation error}\footnote{Truncation error will be formally defined in Chapter 2.} and prove convergence\footnote{For a finite difference schemes, if we can prove the scheme is {\em consistent} and stable, then the scheme is said to converge. Consistency is related to the truncation error and is usually straightforward to prove. Proving stability is usually an exercise in patience and perseverance.}.
+In the text, they derive the forward Euler method.
+This is an explicit method, which means it is easy to implement for problems where you want to evolve a solution in time quickly.
+However, the time steps required for numerical stability may be so small as to render the method useless for even simple problems. 
+The forward Euler method is often used as a ``first attempt'' at gaining some numerical insight into a solution that varies in time. 
+For improved stability and accuracy with larger time steps, you will often turn to either multistage explicit methods (e.g., the popular 4-stage Runge-Kutta method) or implicit methods (e.g., backward Euler or Crank-Nicolson). 
+
+The best takeaway from this part of the text is the way in which convergence is studied {\em numerically}.
+Numerical studies of convergence are useful for either confirming the theory in practice, revealing some error we did not anticipate (either in the theoretical development or in the implementation), or for helping us develop the theory when the numerical analysis is a bit elusive. 
+Students should read through Section 1.3 and also do Exercise 1.15 to develop more insight into this interplay of numerics and theory. 
+
+\subsection{Cauchy Problems}
+
+This section involves PDEs depending upon a single spatial variable $x$ with spatial domain $\Omega=\mathbb{R}$ (so there is no boundary) and time $t$.
+The basic idea is to introduce some simple solutions (and hint at certain solution strategies) to equations that will be studied in more detail later on in the text.
+The method of characteristics is first introduced to solve problems of this type. 
+The main idea is to identify curves in the $(x,t)$-plane, written in the form $(x(t),t)$, that make it possible to write the solution to the PDE in terms of the initial data and these curves. 
+The way this is done is by exploiting certain structure in the PDE to determine an ODE whose solution gives the desirable curve (i.e., characteristic). 
+It is best observed by example and students should read Sections 1.4.1 and 1.4.2.
+The examples shown there are hyperbolic transport equations (i.e., there is no diffusion which is evidenced by the complete lack of second order spatial derivatives). 
+Students should look over Exercises 1.5, 1.6, and 1.7. 
+We will go over the solutions to 1.5(a) and 1.6 in class, and leave the remaining parts of 1.5 and all of 1.7 as homework (for 1.5 part (b), which is similar to part (a), see Example 1.2 in Section 1.4.1, and for parts (c) and (d) refer to Section 1.4.2).
+
+
+In Section 1.4.3, the wave equation is introduced and a clever changes of variables is used to demonstrate that the solution can be written as the sum of two functions in the new variables. 
+Physically, these represent the way that a wave would propagate in both directions.
+Imagine a long thin bathtub that is filled with water that is ``still'' until you smack the water in the middle of the bathtub.
+You would observe waves propagating away from this initial perturbation in both directions.
+Similarly, if you pluck a guitar string in the middle, then a wave propagates in both directions of the string.
+Anyway, the idea of separating variables is useful because it makes it easier to figure out the solution in a very systematic way that pulls upon basic calculus of a single variable concepts. 
+Later in the course, we will separate variables in a different way (writing solutions as products of functions of the different variables), but the consequence is essentially the same in that it provides a systematic approach for solving the problems using basic calculus concepts. 
+Students should look over Exercises 1.8 and 1.9, which we will go over in class. 
+
+In Section 1.4.4, the heat equation is introduced (this is a transport equation with diffusion and is classified as a parabolic PDE). 
+Again, through a creative change of variables, we see how to leverage calculus of a single variable concepts to solve this problem. 
+Equations like the heat equation have the property that they smooth out rough initial data {\em instantly}. 
+Exercises 1.10-1.14 and 1.16-1.17 are concerned with the heat equation.
+We will go over parts of 1.13, 1.16, and 1.17 in class. 
+Exercises 1.10, 1.14, and 1.15 are left for homework.
+
+
+
+
+
+
+
+
+\end{document}
